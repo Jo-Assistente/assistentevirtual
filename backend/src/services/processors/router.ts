@@ -55,7 +55,8 @@ Pergunta do Usuário: {query}
 - Se o usuário perguntar algo fora do escopo do contexto, diga: "Não sou treinada pra responder esse tipo de pergunta. No que mais posso ajudar?"
 - Não responda em mais do que 200 palavras.
 - Não inicie as respostas com "Assistente" ou "Jô".
-      `
+      
+`
     );
 
     const formattedPrompt = await promptTemplate.format({
