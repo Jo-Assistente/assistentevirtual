@@ -65,17 +65,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ onSubmit }) => {
         rows={3} // Número de linhas iniciais
       />
       <div className="button-group">
-        <button type="submit">Enviar</button>
-        <button
-          type="button"
-          onMouseDown={startListening}
-          onMouseUp={stopListening}
-          onTouchStart={startListening} // Suporte para toque móvel
-          onTouchEnd={stopListening} // Suporte para toque móvel
-          className={listening ? "listening" : ""}
-        >
-          {listening ? "Gravando..." : "🎤"}
-        </button>
+        <button type="submit">Enviar</button>        
       </div>
     </form>
   );
