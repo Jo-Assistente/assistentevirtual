@@ -9,7 +9,6 @@ import ChatForm from "../../components/Form/index.tsx";
 import "./chatbot.css";
 
 const logoChat = require("../../public/logo-chat.svg").default;
-
 const logoFjs = require("../../public/logo.svg").default;
 const bannerFjs = require("../../public/banner-fjs.svg").default;
 const iconUser = require("../../public/generic-user.svg").default;
@@ -17,84 +16,37 @@ import { ArrowLeft, DotsThreeVertical, GearFine } from "@phosphor-icons/react";
 import { ChatEntry } from "../../types/types.ts";
 
 export function Chatbot() {
- 
   const [chatLog, setChatLog] = useState<ChatEntry[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [popUpAlert, setPopupAlert] = useState<boolean | null>(false)
   const chatLogRef = useRef<HTMLDivElement>(null);
+
+  // Função para formatar a resposta do bot
+  const formatBotResponse = (text: string) => {
+    return text
+      .replace(/(\d️⃣)/g, "<br><br>$1") // Quebra antes dos números
+      .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>") // Negrito Markdown para HTML
+      .replace(/\n/g, "<br>"); // Quebras de linha em HTML
+  };
 
   const handleSubmit = async (userMessage: string) => {
     setChatLog((prevChatLog: ChatEntry[]) => [
       ...prevChatLog,
-      {
-        type: "user",
-        message: userMessage,
-      },
-      {
-        type: "bot",
-        message: "...",
-      },
+      { type: "user", message: userMessage },
+      { type: "bot", message: "..." },
     ]);
 
     setIsProcessing(true);
     const botResponse = await sendMessage(userMessage);
     setIsProcessing(false);
 
-    const words = botResponse.split(" ");
-
-    for (let i = 0; i < words.length; i++) {
-      setTimeout(() => {
-        setChatLog((prevChatLog: ChatEntry[]) => [
-          ...prevChatLog.slice(0, -1),
-          {
-            type: "bot",
-            message: words.slice(0, i + 1).join(" "),
-          },
-        ]);
-      }, (i + 1) * 150);
-    }
+    const formattedResponse = formatBotResponse(botResponse);
+    
+    setChatLog((prevChatLog: ChatEntry[]) => [
+      ...prevChatLog.slice(0, -1),
+      { type: "bot", message: formattedResponse },
+    ]);
   };
 
-const windowAlert = () => {
-    setTimeout(() => {
-      Swal.fire({
-        title: "Olá, obrigada por testar!",
-        text: "Esta é uma versão de demonstração da Jô. Em breve teremos mais funcionalidades.",
-        icon: "info",
-        showCancelButton: false,
-        showDenyButton:true,
-        confirmButtonColor: "#6A1B44",
-        confirmButtonText: "Voltar ao chat",
-        denyButtonColor: "gray",
-        denyButtonText: "Sugestões? Fale conosco!",
-      }).then((result) => {
-        if (result.isDenied) {
-          window.open("https://docs.google.com/forms/d/e/1FAIpQLSdYYUk-ig9K9RaysWPJdkZcM4WpigLxbou08-5JH8zPdVBjCQ/viewform", '_blank');
-        } 
-      })
-      
-    }, 2000)
-  }
-
-
-
-  const handleAlert = () => {
-    Swal.fire({
-      title: "Olá, obrigada por testar!",
-      text: "Esta é uma versão de demonstração da Jô, ela ainda está em aprendizado e pode te responder informações equivocadas ou não tão precisas. Em breve mais melhorias e funcionalidades.",
-      icon: "info",
-      showCancelButton: false,
-      showDenyButton: true,
-      confirmButtonColor: "#6A1B44",
-      confirmButtonText: "Voltar ao chat",
-      denyButtonColor: "gray",
-      denyButtonText: "Sugestões? Fale conosco!",
-    }).then((result) => {
-      if (result.isDenied) {
-        window.open("https://docs.google.com/forms/d/e/1FAIpQLSdYYUk-ig9K9RaysWPJdkZcM4WpigLxbou08-5JH8zPdVBjCQ/viewform", '_blank');
-      } 
-    })
-  }
   useEffect(() => {
     if (chatLogRef.current) {
       chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight;
@@ -119,11 +71,10 @@ const windowAlert = () => {
               <p>Usuário</p>
               <p>FJS</p>
             </section>
-            <div onClick={handleAlert} className="icon-engine">
+            <div className="icon-engine">
               <GearFine size={40} color="white" />
             </div>
           </aside>
-
         </div>
       </aside>
 
@@ -133,7 +84,7 @@ const windowAlert = () => {
             <a href="/">
               <ArrowLeft size={50} />
             </a>
-            <button onClick={handleAlert}>
+            <button>
               <DotsThreeVertical size={50} color="black" />
             </button>
           </div>
@@ -158,9 +109,12 @@ const windowAlert = () => {
                 }`}
               >
                 <div className="p-5 font-inter text-justify">
-                  <p className="text-[1.2rem] leading-[2.5rem]">
-                    {entry.message}
-                  </p>
+                  <p
+                    className="text-[1.2rem] leading-[2.5rem]"
+                    dangerouslySetInnerHTML={{
+                      __html: entry.message,
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -170,16 +124,7 @@ const windowAlert = () => {
         <ChatForm onSubmit={handleSubmit} />
       </section>
     </div>
-
-        
   );
-
 }
-  
-
-
-
-
-
 
 export default Chatbot;
