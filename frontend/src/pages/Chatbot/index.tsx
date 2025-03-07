@@ -50,10 +50,16 @@ export function Chatbot() {
 
     const formattedResponse = formatBotResponse(botResponse);
 
-    setChatLog((prevChatLog: ChatEntry[]) => [
-      ...prevChatLog.slice(0, -1),
-      { type: "bot", message: formattedResponse },
-    ]);
+    const words = formattedResponse.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+      setTimeout(() => {
+        setChatLog((prevChatLog: ChatEntry[]) => [
+          ...prevChatLog.slice(0, -1),
+          { type: "bot", message: words.slice(0, i + 1).join(" ") },
+        ]);
+      }, (i + 1) * 100); // Diminui o tempo entre cada palavra para a animação de digitação
+    }
   };
 
   useEffect(() => {
@@ -119,7 +125,7 @@ export function Chatbot() {
               >
                 <div className="p-5 font-inter text-justify">
                   <p
-                    className="text-[1.2rem] leading-[2.5rem]"
+                    className="text-[1.2rem] leading-[2.0rem]" // Ajuste o espaçamento de linha
                     dangerouslySetInnerHTML={{
                       __html: entry.message,
                     }}
