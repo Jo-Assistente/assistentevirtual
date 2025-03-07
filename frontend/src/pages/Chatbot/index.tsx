@@ -20,12 +20,21 @@ export function Chatbot() {
   const [isProcessing, setIsProcessing] = useState(false);
   const chatLogRef = useRef<HTMLDivElement>(null);
 
-  // Função para formatar a resposta do bot
+  // Função para formatar a resposta do bot com quebras de linha, negrito e tópicos
   const formatBotResponse = (text: string) => {
-    return text
-      .replace(/(\d️⃣)/g, "<br><br>$1") // Quebra antes dos números
-      .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>") // Negrito Markdown para HTML
-      .replace(/\n/g, "<br>"); // Quebras de linha em HTML
+    // Adiciona quebras de linha
+    text = text.replace(/\n/g, "<br>");
+
+    // Marca texto entre ** para negrito
+    text = text.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+
+    // Formata tópicos numerados
+    text = text.replace(/(\d+\.)\s+/g, "<br><b>$1</b> "); // Ex: 1. -> <b>1.</b>
+
+    // Adiciona espaçamento entre cada item de lista (caso necessário)
+    text = text.replace(/- /g, "<br><b>-</b> ");
+
+    return text;
   };
 
   const handleSubmit = async (userMessage: string) => {
@@ -40,7 +49,7 @@ export function Chatbot() {
     setIsProcessing(false);
 
     const formattedResponse = formatBotResponse(botResponse);
-    
+
     setChatLog((prevChatLog: ChatEntry[]) => [
       ...prevChatLog.slice(0, -1),
       { type: "bot", message: formattedResponse },
