@@ -42,7 +42,7 @@ router.post("/", async (request: Request, response: Response) => {
     
     📌 **Regras para respostas:**  
     - **Cada tópico deve ser separado por uma quebra de linha dupla.**  
-    - **Não use asteriscos (`*`) para formatação.** Apenas utilize negrito para destacar informações importantes.  
+    - **Não use asteriscos (*) para formatação.** Apenas utilize negrito para destacar informações importantes.  
     - **Cada item deve começar com um número e um emoji** (ex: 1️⃣, 2️⃣, 3️⃣).  
     - **Escreva frases curtas e diretas.**  
     - **Evite blocos de texto contínuos.**  
