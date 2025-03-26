@@ -1,6 +1,4 @@
-# Assistente Virtual Jô
-
-# 📘 Documentação do Projeto
+# Assistente Virtual Jô - Documentação do Projeto
 
 ## 📌 Visão Geral
 
@@ -11,7 +9,7 @@ Desenvolvida por membros do Acelera, a Jô é uma assistente virtual que busca a
 **Pré-requisitos:**
 - [Ex: Node.js, Express.Js, React, Docker, ChromaDB e TypeScript.]
 
-**Instalação para rodar localmente:**
+## Instalação para rodar localmente:
 
 ### Clone o repositório:
 ```bash
