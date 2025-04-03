@@ -9,7 +9,7 @@ export const similarChunks = async (userQuery: string): Promise<string> => {
     path: "http://chromadb:8000",
   });
   const collection = await client.getOrCreateCollection({
-    name: "mvp-jo",
+    name: "jo-call-center-sprint",
     embeddingFunction: new OpenAIEmbeddingFunction({
       openai_api_key: process.env.OPENAI_API_KEY as string,
     }),
