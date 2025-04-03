@@ -107,7 +107,7 @@ export function Chatbot() {
           {chatLog.map((entry, index) => (
             <div
               key={index}
-              className={`flex pl-6 items-start ${
+              className={`flex pl-4 items-start ${
                 entry.type === "user" ? "justify-end" : "justify-start"
               }`}
             >
