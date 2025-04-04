@@ -1,9 +1,10 @@
-import express, { Express } from "express";
+import { Express } from "express";
 import dotenv from "dotenv";
 import { setupExpress } from "./expressConfig.js";
 import { router } from "./router.js";
 import cookieParser from "cookie-parser";
 import { loadAndNormalizeDocuments } from "./documentLoader.js";
+import express from 'express';
 
 dotenv.config();
 
