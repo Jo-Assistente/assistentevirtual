@@ -1,4 +1,4 @@
-name: Assistente CI-CD Workflow Produca
+name: Assistente CI-CD Workflow Producao
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-push-prod:
-    runs-on: [self-hosted, prod]
+    runs-on: [self-hosted, prod, local]
     steps:
       - name: Checkout jo-prod Branch
         uses: actions/checkout@v3
