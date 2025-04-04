@@ -22,6 +22,8 @@ ENV REACT_APP_FORMS=$REACT_APP_FORMS
 
 COPY . .
 
+RUN npm install
+
 RUN npm run build
 
 # nginx 
