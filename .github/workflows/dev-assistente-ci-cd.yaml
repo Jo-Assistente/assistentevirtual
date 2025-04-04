@@ -9,7 +9,7 @@ on:
       - jo-dev
 
 jobs:
-  build-and-push-prod:
+  build-and-push-dev:
     runs-on: [self-hosted, aws]
     steps:
       - name: Checkout jo-prod Branch
@@ -32,13 +32,13 @@ jobs:
         run: docker build -t aceleraprojetosfjs/assistentevirtual-backend:prod ./backend
 
       - name: Pushing Docker Image for Frontend
-        run: docker push aceleraprojetosfjs/assistentevirtual-frontend:prod
+        run: docker push aceleraprojetosfjs/assistentevirtual-frontend:dev
 
       - name: Pushing Docker Image for Backend (jo-prod)
-        run: docker push aceleraprojetosfjs/assistentevirtual-backend:prod
+        run: docker push aceleraprojetosfjs/assistentevirtual-backend:dev
 
   deploy-prod:
-    needs: build-and-push-prod
+    needs: build-and-push-dev
     runs-on: self-hosted
     steps:
       - name: Checkout Source
@@ -53,10 +53,10 @@ jobs:
 
       - name: Pull Docker Images (jo-prod)
         run: |
-          docker pull aceleraprojetosfjs/assistentevirtual-frontend:prod
-          docker pull aceleraprojetosfjs/assistentevirtual-backend:prod
+          docker pull aceleraprojetosfjs/assistentevirtual-frontend:dev
+          docker pull aceleraprojetosfjs/assistentevirtual-backend:dev
 
-      - name: Deploy using Docker Compose (jo-prod)
+      - name: Deploy using Docker Compose (jo-dev)
         run: |
           docker-compose down
           REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }} docker-compose up --build -d
