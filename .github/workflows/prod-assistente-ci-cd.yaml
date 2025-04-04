@@ -1,0 +1,62 @@
+name: Assistente CI-CD Workflow Producao
+
+on:
+  push:
+    branches:
+      - jo-prod
+  pull_request:
+    branches:
+      - jo-prod
+
+jobs:
+  build-and-push-prod:
+    runs-on: [self-hosted, prod]
+    steps:
+      - name: Checkout jo-prod Branch
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      - name: Create env file
+        run: |
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
+
+      - name: Login to DockerHub
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Building Docker Image for Frontend
+        run: docker build --build-arg REACT_APP_API_URL=${{ vars.REACT_APP_API_PROD_URL }} -t aceleraprojetosfjs/assistentevirtual-frontend:prod ./frontend
+
+      - name: Building Docker Image for Backend 
+        run: docker build -t aceleraprojetosfjs/assistentevirtual-backend:prod ./backend
+
+      - name: Pushing Docker Image for Frontend
+        run: docker push aceleraprojetosfjs/assistentevirtual-frontend:prod
+
+      - name: Pushing Docker Image for Backend (jo-prod)
+        run: docker push aceleraprojetosfjs/assistentevirtual-backend:prod
+
+  deploy-prod:
+    needs: build-and-push-prod
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+
+      - name: Re-create .env file
+        run: |
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
+
+      - name: Login to DockerHub
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Pull Docker Images (jo-prod)
+        run: |
+          docker pull aceleraprojetosfjs/assistentevirtual-frontend:prod
+          docker pull aceleraprojetosfjs/assistentevirtual-backend:prod
+
+      - name: Deploy using Docker Compose (jo-prod)
+        run: |
+          docker-compose down
+          REACT_APP_API_URL=${{ vars.REACT_APP_API_PROD_URL }} docker-compose up --build -d

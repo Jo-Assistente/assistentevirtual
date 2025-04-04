@@ -41,8 +41,8 @@ export const loadAndNormalizeDocuments = async (): Promise<string[]> => {
 
   const textSplitter = new RecursiveCharacterTextSplitter({
     separators: ["\n", ".", "!", "?", ";", " ", ""],
-    chunkSize: 400,
-    chunkOverlap: 80,
+    chunkSize: 2000,
+    chunkOverlap: 400,
     lengthFunction: (str: string) => str.length,
   });
 
@@ -65,7 +65,7 @@ export const loadAndNormalizeDocuments = async (): Promise<string[]> => {
     documentsForChroma,
     new OpenAIEmbeddings(),
     {
-      collectionName: "mvp-jo",
+      collectionName: "jo-call-center-sprint",
       url: "http://chromadb:8000",
     }
   );
