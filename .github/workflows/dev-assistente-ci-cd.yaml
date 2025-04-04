@@ -59,4 +59,4 @@ jobs:
       - name: Deploy using Docker Compose (jo-dev)
         run: |
           docker-compose down
-          REACT_APP_API_URL='http://3.131.236.61:9000/' docker-compose up --build -d
+          REACT_APP_API_URL=${{ vars.REACT_APP_API_DEV_URL }} docker-compose up --build -d
