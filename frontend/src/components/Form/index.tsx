@@ -25,7 +25,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ onSubmit }) => {
     placeholder="Digite sua dúvida..."
     value={input}
     onChange={(e) => setInput(e.target.value)}
-    rows={3} // Número de linhas iniciais
+    rows={3} 
   />
   <button type="submit">Enviar</button>
 </form>

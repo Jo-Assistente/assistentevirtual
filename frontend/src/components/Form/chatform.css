@@ -8,7 +8,7 @@
 
 .form-submit button {
   @apply bg-black text-white px-8 py-5 rounded-[29px] 
-  ml-[-9rem] w-[7rem] hover:bg-gray-900;
+  ml-[1rem] w-[7rem] hover:bg-gray-900;
 }
 
 .form-submit input {
@@ -16,10 +16,11 @@
 }
 
 .form-submit textarea {
-  @apply h-[90px] bg-main-white rounded-[2rem] w-[75%] p-8 shadow-sm shadow-black text-2xl resize-none max-w-[80%];
+  @apply h-[90px] bg-main-white rounded-[2rem] w-[65%] p-2 shadow-sm shadow-black text-2xl resize-none max-w-[80%];
   line-height: 1.5;
   overflow-y: auto; 
   max-height: 150px; 
+  text-overflow: ellipsis;
 }
 
 .title-user::before {
