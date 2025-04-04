@@ -7,7 +7,7 @@
 }
 
 .aside-header {
-  @apply bg-main-black h-full min-h-full max-w-[22%] min-w-[17%] flex flex-col items-center justify-between;
+  @apply bg-main-black h-full min-h-full max-w-[23%] min-w-[17%] flex flex-col items-center justify-between;
 }
 
 .banner-aside {
