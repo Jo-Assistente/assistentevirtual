@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-push-prod:
-    runs-on: self-hosted
+    runs-on: [self-hosted, prod]
     steps:
       - name: Checkout jo-prod Branch
         uses: actions/checkout@v3
