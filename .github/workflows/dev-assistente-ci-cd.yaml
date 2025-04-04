@@ -12,7 +12,7 @@ jobs:
   build-and-push-dev:
     runs-on: [self-hosted, aws]
     steps:
-      - name: Checkout jo-prod Branch
+      - name: Checkout jo-dev Branch
         uses: actions/checkout@v3
 
       - name: Set up Docker
@@ -26,18 +26,18 @@ jobs:
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Building Docker Image for Frontend
-        run: docker build --build-arg REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }} -t aceleraprojetosfjs/assistentevirtual-frontend:prod ./frontend
+        run: docker build --build-arg REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }} -t aceleraprojetosfjs/assistentevirtual-frontend:dev ./frontend
 
       - name: Building Docker Image for Backend 
-        run: docker build -t aceleraprojetosfjs/assistentevirtual-backend:prod ./backend
+        run: docker build -t aceleraprojetosfjs/assistentevirtual-backend:dev ./backend
 
       - name: Pushing Docker Image for Frontend
         run: docker push aceleraprojetosfjs/assistentevirtual-frontend:dev
 
-      - name: Pushing Docker Image for Backend (jo-prod)
+      - name: Pushing Docker Image for Backend (jo-dev)
         run: docker push aceleraprojetosfjs/assistentevirtual-backend:dev
 
-  deploy-prod:
+  deploy-dev:
     needs: build-and-push-dev
     runs-on: self-hosted
     steps:
@@ -51,7 +51,7 @@ jobs:
       - name: Login to DockerHub
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-      - name: Pull Docker Images (jo-prod)
+      - name: Pull Docker Images (jo-dev)
         run: |
           docker pull aceleraprojetosfjs/assistentevirtual-frontend:dev
           docker pull aceleraprojetosfjs/assistentevirtual-backend:dev
