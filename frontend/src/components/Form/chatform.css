@@ -12,7 +12,7 @@
 
 .form-submit button {
   @apply bg-black text-white px-8 py-5 rounded-[29px] 
-  ml-[-9rem] w-[8rem] hover:bg-gray-900 
+  ml-[-9rem] w-[7rem] hover:bg-gray-900 
 }
 
 
