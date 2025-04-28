@@ -26,7 +26,7 @@ services:
       
 
   frontend:
-    container_name: frontend_c
+    container_name: frontend_b
     image: aceleraprojetosfjs/assistentevirtual-frontend:latest
     build:
       context: ./frontend 
