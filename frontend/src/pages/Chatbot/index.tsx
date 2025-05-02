@@ -37,7 +37,6 @@ const Chatbot = () => {
     setIsProcessing(true);
     const botResponse = await sendMessage(userMessage);
     setIsProcessing(false);
-    
 
     const words = botResponse.split(" ");
 
@@ -54,7 +53,7 @@ const Chatbot = () => {
     }
   };
 
-  const handleAlert = () => {
+  /*   const handleAlert = () => {
     Swal.fire({
       title: "Olá, obrigada por testar!",
       text: "Esta é uma versão de demonstração da Jô. Em breve teremos mais funcionalidades.",
@@ -70,7 +69,25 @@ const Chatbot = () => {
         window.open(process.env.REACT_APP_FORMS, '_blank');
       } 
     })
-  }
+  } */
+
+  const warningAlert = () => {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "A Jô está em manutenção. Para mais informações, entre em contato com o time de suporte.",
+      footer:
+        '<a href="https://zimbra.fjs.org.br/" target="_blank" style="color: #1a0dab; text-decoration: underline;">Enviar e-mail para setor de inovação</a>',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+    });
+  };
+
+  useEffect(() => {
+    warningAlert();
+  }, []);
+
   useEffect(() => {
     if (chatLogRef.current) {
       chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight;
@@ -95,7 +112,7 @@ const Chatbot = () => {
               <p>Usuário</p>
               <p>FJS</p>
             </section>
-            <div onClick={handleAlert} className="icon-engine">
+            <div className="icon-engine">
               <GearFine size={40} color="white" />
             </div>
           </aside>
@@ -108,7 +125,7 @@ const Chatbot = () => {
             <a href="/">
               <ArrowLeft size={50} />
             </a>
-            <button onClick={handleAlert}>
+            <button>
               <DotsThreeVertical size={50} color="black" />
             </button>
           </div>
