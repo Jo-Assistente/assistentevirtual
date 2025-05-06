@@ -53,7 +53,7 @@ const Chatbot = () => {
     }
   };
 
-  /*   const handleAlert = () => {
+  const handleAlert = () => {
     Swal.fire({
       title: "Olá, obrigada por testar!",
       text: "Esta é uma versão de demonstração da Jô. Em breve teremos mais funcionalidades.",
@@ -69,9 +69,9 @@ const Chatbot = () => {
         window.open(process.env.REACT_APP_FORMS, '_blank');
       } 
     })
-  } */
+  } 
 
-   const warningAlert = () => {
+  /*const warningAlert = () => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -82,10 +82,11 @@ const Chatbot = () => {
       allowEscapeKey: false,
       showConfirmButton: false,
     });
-  }; 
+  }; */
 
   useEffect(() => {
-    warningAlert(); 
+    //warningAlert();
+    handleAlert();
   }, []);
 
   useEffect(() => {
@@ -112,7 +113,7 @@ const Chatbot = () => {
               <p>Usuário</p>
               <p>FJS</p>
             </section>
-            <div className="icon-engine">
+            <div className="icon-engine" onClick={handleAlert}>
               <GearFine size={40} color="white" />
             </div>
           </aside>
@@ -125,7 +126,7 @@ const Chatbot = () => {
             <a href="/">
               <ArrowLeft size={50} />
             </a>
-            <button>
+            <button onClick={handleAlert}>
               <DotsThreeVertical size={50} color="black" />
             </button>
           </div>
