@@ -71,7 +71,7 @@ const Chatbot = () => {
     })
   } */
 
-  const warningAlert = () => {
+  /* const warningAlert = () => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -82,10 +82,10 @@ const Chatbot = () => {
       allowEscapeKey: false,
       showConfirmButton: false,
     });
-  };
+  }; */
 
   useEffect(() => {
-    warningAlert();
+    /*warningAlert(); */
   }, []);
 
   useEffect(() => {
