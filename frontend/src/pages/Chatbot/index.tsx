@@ -21,6 +21,19 @@ const Chatbot = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const chatLogRef = useRef<HTMLDivElement>(null);
 
+ // Função para formatar a resposta do bot com quebras de linha, negrito e tópicos
+  const formatBotResponse = (text: string) => {
+    // Adiciona quebras de linha
+    text = text.replace(/\n/g, "<br>");
+    // Marca texto entre ** para negrito
+    text = text.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+    // Formata tópicos numerados
+    text = text.replace(/(\d+\.)\s+/g, "<br><b>$1</b> "); // Ex: 1. -> <b>1.</b>
+    // Adiciona espaçamento entre cada item de lista (caso necessário)
+    text = text.replace(/- /g, "<br><b>-</b> ");
+    return text;
+  };
+
   const handleSubmit = async (userMessage: string) => {
     setChatLog((prevChatLog: ChatEntry[]) => [
       ...prevChatLog,
@@ -38,18 +51,17 @@ const Chatbot = () => {
     const botResponse = await sendMessage(userMessage);
     setIsProcessing(false);
 
-    const words = botResponse.split(" ");
+     const formattedResponse = formatBotResponse(botResponse);
+
+    const words = formattedResponse.split(" ");
 
     for (let i = 0; i < words.length; i++) {
       setTimeout(() => {
         setChatLog((prevChatLog: ChatEntry[]) => [
           ...prevChatLog.slice(0, -1),
-          {
-            type: "bot",
-            message: words.slice(0, i + 1).join(" "),
-          },
+          { type: "bot", message: words.slice(0, i + 1).join(" ") },
         ]);
-      }, (i + 1) * 150);
+      }, (i + 1) * 100); // Diminui o tempo entre cada palavra para a animação de digitação
     }
   };
 
@@ -151,9 +163,12 @@ const Chatbot = () => {
                 }`}
               >
                 <div className="p-5 font-inter text-justify">
-                  <p className="text-[1.2rem] leading-[2.5rem]">
-                    {entry.message}
-                  </p>
+                  <p
+                    className="text-[1.2rem] leading-[2.0rem]" 
+                    dangerouslySetInnerHTML={{
+                     __html: entry.message,
+                    }}
+                  />
                 </div>
               </div>
             </div>
