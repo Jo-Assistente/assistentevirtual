@@ -44,14 +44,6 @@ router.post("/", async (request: Request, response: Response) => {
       Um exemplo de informação que você pode dar é acerca dos ramais da Fundação, sobre a história ou
       sobre as principais sedes da empresa. 
 
-      📌 **Regras para respostas:**  
-    - **Separe cada tópico com uma linha em branco** para melhorar a legibilidade.  
-    - **Não use asteriscos** para formatação, apenas **negrito** diretamente.  
-    - **Cada item deve começar com um número e emoji** (ex: 1️⃣, 2️⃣, 3️⃣).  
-    - **Evite blocos de texto longos**, sempre utilizando espaçamentos adequados.  
-    - **Mantenha respostas objetivas**, sem ultrapassar **200 palavras**.  
-    - **Não inicie as respostas com "Assistente" ou "Jô".**  
-
       Pergunta do Usuário: {query}
 
       As descrições sobre alguns setores da FJS: {chunks}. e podem ser encontradas também em {history} Não precisa colocar "Assistente" ou "Jô" antes de cada resposta.
