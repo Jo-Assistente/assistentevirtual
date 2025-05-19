@@ -58,7 +58,6 @@ router.post("/", async (request: Request, response: Response) => {
       Se limite a responder com base nessas informações fornecidas. Não traga outras informações na sua resposta. Se o usuário perguntar coisas que fujam do escopo de contexto, assunto ou informações contidos nos documentos, você diz "Não sou treinada pra responder esse tipo de pergunta. No que mais posso ajudar?"
       Não responda em mais do que 200 palavras.`
     );
-
     const formattedPrompt = await promptTemplate.format({
       query: userQuery,
       chunks: chunks,
