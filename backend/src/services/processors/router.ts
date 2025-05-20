@@ -53,6 +53,7 @@ router.post("/", async (request: Request, response: Response) => {
 
       **Regras para respostas:**
       - Para perguntas sobre a FJS, use exclusivamente as informações fornecidas em {chunks} e {history}.
+      - Não forneça links ou URLs diretamente nas respostas.
       - Para perguntas sobre convênios médicos:
         - Se o convênio mencionado estiver listado em {chunks}, informe que o médico aceita este convênio.
         - Se o convênio mencionado **não estiver listado**, responda **apenas** com: "O médico não aceita este convênio."
