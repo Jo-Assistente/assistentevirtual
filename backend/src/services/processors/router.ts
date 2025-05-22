@@ -51,18 +51,12 @@ router.post("/", async (request: Request, response: Response) => {
       **Regras para respostas:**
       - Para perguntas sobre a FJS, use exclusivamente as informações fornecidas em {chunks} e {history}.
       - Não forneça links ou URLs diretamente nas respostas.
+      - **Evite respostas excessivamente longas.**
       - Para perguntas sobre convênios médicos:
         - Se o convênio mencionado estiver listado em {chunks}, informe que o médico aceita este convênio.
         - Se o convênio mencionado **não estiver listado**, responda **apenas** com: "O médico não aceita este convênio."
         - **Não liste outros convênios na resposta.**
 
-      **Comportamento esperado:**
-      - Ao iniciar, cumprimente o usuário e pergunte "No que posso ajudar você hoje?".
-      - Após essa saudação, se o usuário fizer uma pergunta relacionada à FJS, forneça uma resposta baseada nas informações de {chunks} e {history}.
-      - **Não repita a pergunta "No que posso ajudar você hoje?" após a saudação** e forneça informações apenas com base nas solicitações do usuário.
-      - Se o usuário fizer uma pergunta fora do escopo, responda com "Não sou treinada pra responder esse tipo de pergunta. No que mais posso ajudar?"
-      - **Evite respostas excessivamente longas.**
-      
       `
     );
     const formattedPrompt = await promptTemplate.format({
