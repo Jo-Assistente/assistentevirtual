@@ -55,6 +55,9 @@ router.post("/", async (request: Request, response: Response) => {
         - Se o convênio mencionado estiver listado em {chunks}, informe que o médico aceita este convênio.
         - Se o convênio mencionado **não estiver listado**, responda **apenas** com: "O médico não aceita este convênio."
         - **Não liste outros convênios na resposta.**
+
+         **Comportamento desejado:**
+    - Após a saudação, pergunte: "No que posso ajudar você hoje?" e **pare de falar** após essa pergunta. Não forneça informações adicionais a menos que o usuário solicite.
       `
     );
     const formattedPrompt = await promptTemplate.format({
