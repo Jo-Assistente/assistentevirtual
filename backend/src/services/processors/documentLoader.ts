@@ -46,7 +46,10 @@ export const loadAndNormalizeDocuments = async (): Promise<string[]> => {
   });
 
   const combinedText = normalizedDocs.join("\n");
-  const documents = await textSplitter.splitText(combinedText);
+  const docsChunks = await Promise.all(
+  normalizedDocs.map(doc => textSplitter.splitText(doc))
+  );
+  const documents = docsChunks.flat()
   console.log("Text chunks:", JSON.stringify(documents, null, 2));
 
   const documentsForChroma = documents.map((doc: string) => ({
