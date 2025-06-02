@@ -40,8 +40,8 @@ export const loadAndNormalizeDocuments = async (): Promise<string[]> => {
 
   const textSplitter = new RecursiveCharacterTextSplitter({
     separators: ["\n", ".", "!", "?", ";", " ", ""],
-    chunkSize: 650,
-    chunkOverlap: 70,
+    chunkSize: 500,
+    chunkOverlap: 100,
     lengthFunction: (str: string) => str.length,
   });
 
