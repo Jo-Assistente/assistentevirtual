@@ -41,13 +41,16 @@ export const loadAndNormalizeDocuments = async (): Promise<string[]> => {
 
   const textSplitter = new RecursiveCharacterTextSplitter({
     separators: ["\n", ".", "!", "?", ";", " ", ""],
-    chunkSize: 500,
-    chunkOverlap: 70,
+    chunkSize: 1250,
+    chunkOverlap: 100,
     lengthFunction: (str: string) => str.length,
   });
 
   const combinedText = normalizedDocs.join("\n");
-  const documents = await textSplitter.splitText(combinedText);
+  const docsChunks = await Promise.all(
+  normalizedDocs.map(doc => textSplitter.splitText(doc))
+  );
+  const documents = docsChunks.flat()
   console.log("Text chunks:", JSON.stringify(documents, null, 2));
 
   const documentsForChroma = documents.map((doc: string) => ({
